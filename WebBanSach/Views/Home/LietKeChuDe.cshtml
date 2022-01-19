@@ -1,0 +1,12 @@
+﻿@model List<WebBanSach.Models.ChuDe>
+<h3>
+    CHỦ ĐỀ SÁCH
+</h3>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a class="list-group-item text-success" href="@Url.Action("XemSachTheoChuDe", new { id=item.MaCD})">
+            @item.Tenchude <span class="badge">@item.Saches.Count</span>
+        </a>
+    }
+</div>

@@ -1,0 +1,59 @@
+﻿@model WebBanSach.Models.Cart
+@{
+    ViewBag.Title = "ViewCart";
+}
+
+<h2>GIỎ HÀNG</h2>
+@if (Model.Carts.Count > 0)
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th class="text-center">Hình ảnh sản phẩm</th>
+            <th style="width:30%">Tên sản phẩm</th>
+            <th style="width:10%">Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Carts)
+        {
+            using (Html.BeginForm("Update", "ShoppingCart"))
+            {
+            <tr>
+                <td class="text-center">
+                    <img src="~/Bia_sach/@item.HinhAnh" alt="Alternate Text" style="height:50px" />
+                </td>
+                <td>@item.TenSP</td>
+                <td>
+                    @Html.Hidden("MaSP", item.MaSP)
+                    @Html.TextBox("Soluong", @item.SoLuong, new { @type = "number", @class = "form-control" })
+                </td>
+                <td>
+                    @Html.FormatValue(item.DonGia, "{0:#,##0} đồng")
+                </td>
+                <td>
+                    @Html.FormatValue(item.DonGia * item.SoLuong, "{0:#,##0} đồng")
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-info">Update</button>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaSP }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+            }
+        }
+    </table>
+    <p >
+        <b>Tổng cộng : @Html.FormatValue(Model.Carts.Sum(x=>x.SoLuong * x.DonGia), "{0:#,##0} đồng")</b>
+    </p>
+
+    <p class="text-center">
+        @Html.ActionLink("Trả toàn bộ", "DeleteAll", null, new { @class = "btn btn-danger" })
+        @Html.ActionLink("Đặt hàng", "Checkout", null, new { @class = "btn btn-info" })
+    </p>
+}
+else
+{
+    <div class="alert alert-danger">
+        Không có sản phẩm nào trong giỏ hàng của bạn.
+    </div>
+}

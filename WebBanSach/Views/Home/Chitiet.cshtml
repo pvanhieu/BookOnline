@@ -1,0 +1,33 @@
+﻿@model WebBanSach.Models.Sach
+@{
+    ViewBag.Title = "Chitiet";
+}
+
+<h2>THÔNG TIN CHI TIẾT</h2>
+<div class="row">
+    <div class="col-md-3 text-center">
+        <img src="~/Bia_sach/@Model.AnhBia" style="height:150px" />
+    </div>
+    <div class="col-md-9">
+            @Model.TenSach <br />
+         Chủ đề: <b>@Model.ChuDe.Tenchude</b> <br />
+         Nhà xuất bản:<b> @Model.NhaXuatBan.TenNXB </b><br />
+         Mô tả: @Model.Mota <br />
+
+        <a class="btn btn-info" href="@Url.Action("AddToCart","ShoppingCart",new { id= Model.MaSach})">
+            <span class="glyphicon glyphicon-shopping-cart"> Đặt mua</span>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
+<h2 class="text-center">SÁCH CÙNG CHỦ ĐỀ</h2>
+@foreach (var item in Model.ChuDe.Saches.Where(x=>x.MaSach!=Model.MaSach).Take(5).ToList()) 
+{
+    <div class="col-md-3">
+        <a href="@Url.Action("Chitiet",new { id=item.MaSach})">
+            <img src="~/Bia_sach/@item.AnhBia" class="thumbnail" alt="Alternate Text" />
+        </a>
+    </div>
+}
+
+

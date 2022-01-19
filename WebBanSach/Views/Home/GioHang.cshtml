@@ -1,0 +1,32 @@
+﻿@model List<WebBanSach.Models.Sach>
+@{
+    ViewBag.Title = "GioHang";
+}
+
+<h2>GioHang</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Hình ảnh sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Thành tiền</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.AnhBia</td>
+            <td>@item.TenSach</td>
+            <td>@item.</td>
+            <td>@item.Dongia</td>
+            <td>@item.</td>
+            <td>
+                <a href="@Url.Action("Update", new {MaSach=item.MaSach})" class="btn btn-info"> <span class="glyphicon glyphicon-edit"></span> Update </a>
+
+                <a onclick="showConfirm('@item.MaSach')" class="btn btn-danger"> <span class="glyphicon glyphicon-remove"></span> Xoá </a>
+
+            </td>
+        </tr>
+    }
+</table>
